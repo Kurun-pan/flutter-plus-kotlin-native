@@ -1,0 +1,22 @@
+PODS:
+  - FlutterMacOS (1.0.0)
+  - kotlin_native_plugin (0.0.3):
+    - FlutterMacOS
+
+DEPENDENCIES:
+  - FlutterMacOS (from `Flutter/ephemeral/.symlinks/flutter/darwin-x64`)
+  - kotlin_native_plugin (from `Flutter/ephemeral/.symlinks/plugins/kotlin_native_plugin/macos`)
+
+EXTERNAL SOURCES:
+  FlutterMacOS:
+    :path: Flutter/ephemeral/.symlinks/flutter/darwin-x64
+  kotlin_native_plugin:
+    :path: Flutter/ephemeral/.symlinks/plugins/kotlin_native_plugin/macos
+
+SPEC CHECKSUMS:
+  FlutterMacOS: 15bea8a44d2fa024068daa0140371c020b4b6ff9
+  kotlin_native_plugin: b4b9e426cbec48a2fb2ef4ec2acfec2847394af6
+
+PODFILE CHECKSUM: 2c44d578a2acaaed0401d0d3bb20d04d4b080703
+
+COCOAPODS: 1.8.4
