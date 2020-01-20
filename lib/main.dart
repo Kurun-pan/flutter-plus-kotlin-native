@@ -1,7 +1,20 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:kotlin_native_plugin/example_plugin.dart' as example_plugin;
+import 'package:flutter/foundation.dart'
+    show debugDefaultTargetPlatformOverride;
+import 'package:kotlin_native_example_plugin/example_plugin.dart'
+    as example_plugin;
+
+void _setTargetPlatformForDesktop() {
+  // No need to handle macOS, as it has now been added to TargetPlatform.
+  if (Platform.isLinux || Platform.isWindows) {
+    debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
+  }
+}
 
 void main() {
+  _setTargetPlatformForDesktop();
+
   // Try to resize and reposition the window to be half the width and height
   // of its screen, centered horizontally and shifted up from center.
   WidgetsFlutterBinding.ensureInitialized();

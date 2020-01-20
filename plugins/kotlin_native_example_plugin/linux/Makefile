@@ -19,7 +19,7 @@
 # The name of the plugin.
 # The primary source file is assumed to be $(PLUGIN_NAME).cc, with
 # $(PLUGIN_NAME).h as the public header meant for inclusion by the application.
-PLUGIN_NAME=example_plugin
+PLUGIN_NAME=kotlin_native_example_plugin
 # Any files other than the plugin class files that need to be compiled.
 EXTRA_SOURCES=
 # Extra flags (e.g., for library dependencies).
@@ -51,6 +51,9 @@ OBJ_DIR=$(PLUGIN_OUT_DIR)/obj/$(BUILD)
 FLUTTER_LIB_NAME=flutter_linux_glfw
 FLUTTER_LIB=$(FLUTTER_EPHEMERAL_DIR)/lib$(FLUTTER_LIB_NAME).so
 
+# Kotlin/Native library
+KOTLIN_LIB_NAME=KotlinNative
+
 # Add relevant code from the wrapper library, which is intended to be statically
 # built into the plugin.
 # Use abspath for the wrapper root, which can contain relative paths; the
@@ -78,9 +81,10 @@ CXXFLAGS.release=-DNDEBUG
 CXXFLAGS=-std=c++14 -Wall -Werror -fPIC -fvisibility=hidden \
 	-DFLUTTER_PLUGIN_IMPL $(CXXFLAGS.$(BUILD)) $(EXTRA_CXXFLAGS)
 CPPFLAGS=$(patsubst %,-I%,$(INCLUDE_DIRS)) $(EXTRA_CPPFLAGS)
-LDFLAGS=-shared -L$(FLUTTER_EPHEMERAL_DIR) -l$(FLUTTER_LIB_NAME) $(EXTRA_LDFLAGS)
+LDFLAGS=-shared -L$(FLUTTER_EPHEMERAL_DIR) -l$(FLUTTER_LIB_NAME) -L$(PLUGIN_OUT_DIR) -l$(KOTLIN_LIB_NAME) $(EXTRA_LDFLAGS)
 
 # Final output files that will be used by applications.
+KOTLIN_LIBRARY_OUT=$(PLUGIN_OUT_DIR)/lib$(KOTLIN_LIB_NAME).so
 LIBRARY_OUT=$(OUT_DIR)/lib$(PLUGIN_NAME).so
 HEADER_OUT=$(OUT_DIR)/include/$(PUBLIC_HEADER)
 
@@ -94,10 +98,14 @@ DEPENDENCY_FILES=$(OBJ_FILES:%.o=%.d)
 all: $(PLUGIN_NAME)
 
 .PHONY: $(PLUGIN_NAME)
-$(PLUGIN_NAME) : $(LIBRARY_OUT) $(HEADER_OUT)
+$(PLUGIN_NAME) : $(KOTLIN_LIBRARY_OUT) $(LIBRARY_OUT) $(HEADER_OUT)
+
+$(KOTLIN_LIBRARY_OUT): lib$(KOTLIN_LIB_NAME).so
+	mkdir -p $(@D)
+	cp $< $@
 
 $(LIBRARY_OUT): $(OBJ_FILES)
-	mkdir -p $(@D)
+	#mkdir -p $(@D)
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $^ $(LDFLAGS) -o $@
 
 $(HEADER_OUT): $(PUBLIC_HEADER)

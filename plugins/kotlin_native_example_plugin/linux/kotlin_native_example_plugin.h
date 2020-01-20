@@ -11,8 +11,8 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-#ifndef PLUGINS_EXAMPLE_LINUX_EXAMPLE_PLUGIN_H_
-#define PLUGINS_EXAMPLE_LINUX_EXAMPLE_PLUGIN_H_
+#ifndef KOTLIN_NATIVE_EXAMPLE_PLUGIN_H_
+#define KOTLIN_NATIVE_EXAMPLE_PLUGIN_H_
 
 #include <flutter_plugin_registrar.h>
 
@@ -26,11 +26,11 @@
 extern "C" {
 #endif
 
-FLUTTER_PLUGIN_EXPORT void ExamplePluginRegisterWithRegistrar(
+FLUTTER_PLUGIN_EXPORT void KotlinNativeExamplePluginRegisterWithRegistrar(
     FlutterDesktopPluginRegistrarRef registrar);
 
 #if defined(__cplusplus)
 }  // extern "C"
 #endif
 
-#endif  // PLUGINS_EXAMPLE_LINUX_EXAMPLE_PLUGIN_H_
+#endif  // KOTLIN_NATIVE_EXAMPLE_PLUGIN_H_

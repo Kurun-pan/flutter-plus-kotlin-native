@@ -81,10 +81,10 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.4"
-  kotlin_native_plugin:
+  kotlin_native_example_plugin:
     dependency: "direct main"
     description:
-      path: "plugins/kotlin_native_plugin"
+      path: "plugins/kotlin_native_example_plugin"
       relative: true
     source: path
     version: "0.0.1"

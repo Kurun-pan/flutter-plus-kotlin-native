@@ -1,4 +1,4 @@
-name: kotlin_native_plugin
+name: kotlin_native_example_plugin
 description: A minimal example plugin for desktop, in the style of the 'flutter create' plugin template.
 version: 0.0.1
 author: author
@@ -8,11 +8,11 @@ flutter:
   plugin:
     platforms:
       linux:
-        pluginClass: ExamplePlugin
+        pluginClass: KotlinNativeExamplePlugin
       macos:
-        pluginClass: ExamplePlugin
+        pluginClass: KotlinNativeExamplePlugin
       windows:
-        pluginClass: ExamplePlugin
+        pluginClass: KotlinNativeExamplePlugin
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
