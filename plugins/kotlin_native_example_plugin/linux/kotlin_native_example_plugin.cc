@@ -24,6 +24,8 @@
 
 namespace {
 
+const char kChannelName[] = "com.kotlin_native_example_plugin.platform_channels/channel";
+
 class KotlinNativeExamplePlugin : public flutter::Plugin {
  public:
   static void RegisterWithRegistrar(flutter::PluginRegistrar *registrar);
@@ -48,7 +50,7 @@ class KotlinNativeExamplePlugin : public flutter::Plugin {
 void KotlinNativeExamplePlugin::RegisterWithRegistrar(flutter::PluginRegistrar *registrar) {
   auto channel =
       std::make_unique<flutter::MethodChannel<flutter::EncodableValue>>(
-          registrar->messenger(), "kotlin_native_example_plugin",
+          registrar->messenger(), kChannelName,
           &flutter::StandardMethodCodec::GetInstance());
   auto *channel_pointer = channel.get();
 
@@ -81,7 +83,18 @@ void KotlinNativeExamplePlugin::HandleMethodCall(
   }
   else if (method_call.method_name().compare("echo") == 0) {
     KotlinNative_ExportedSymbols* libs = KotlinNative_symbols();
-    flutter::EncodableValue response(libs->kotlin.root.KotlinNative.echo("hello, world!"));
+    const flutter::EncodableValue* args = method_call.arguments();
+
+    std::string message = "null";
+    if (args != nullptr && args->IsList() && args->ListValue().size() == 2) {
+      auto list = args->ListValue();
+      //message = list[0].StringValue(); // "message"
+      message = list[1].StringValue();
+    }
+
+    std::string resultMessage = libs->kotlin.root.KotlinNative.echo(message.c_str());
+    flutter::EncodableValue response(resultMessage);
+
     result->Success(&response);
   }
   else {
