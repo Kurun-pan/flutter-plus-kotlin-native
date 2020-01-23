@@ -16,11 +16,11 @@ import Cocoa
 import FlutterMacOS
 import KotlinNative
 
-public class ExamplePlugin: NSObject, FlutterPlugin {
+public class KotlinNativeExamplePlugin: NSObject, FlutterPlugin {
 
   public static func register(with registrar: FlutterPluginRegistrar) {
-    let channel = FlutterMethodChannel(name: "example_plugin", binaryMessenger: registrar.messenger)
-    let instance = ExamplePlugin()
+    let channel = FlutterMethodChannel(name: "com.kotlin_native_example_plugin.platform_channels/channel", binaryMessenger: registrar.messenger)
+    let instance = KotlinNativeExamplePlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
 
@@ -28,7 +28,7 @@ public class ExamplePlugin: NSObject, FlutterPlugin {
     switch call.method {
     case "getPlatformVersion":
       result("macOS " + ProcessInfo.processInfo.operatingSystemVersionString)
-    case "echo":
+    ase "echo":
       result(KotlinNativeKt.echo(str:"hello, world!") ?? "nill")
     default:
       result(FlutterMethodNotImplemented)

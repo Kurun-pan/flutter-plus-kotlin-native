@@ -5,8 +5,8 @@
 import FlutterMacOS
 import Foundation
 
-import kotlin_native_plugin
+import kotlin_native_example_plugin
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
-  ExamplePlugin.register(with: registry.registrar(forPlugin: "ExamplePlugin"))
+  KotlinNativeExamplePlugin.register(with: registry.registrar(forPlugin: "KotlinNativeExamplePlugin"))
 }
